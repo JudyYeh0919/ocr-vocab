@@ -1,0 +1,16 @@
+# Claude Code 本機設定
+.claude/
+
+# 作業系統產生的檔案
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 編輯器設定
+.vscode/
+.idea/
+
+# 打包輸出
+*.zip
+*.crx
+*.pem
