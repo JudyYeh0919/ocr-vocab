@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OCR 單字本 - 設定</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <main>
+    <h1>設定</h1>
+
+    <form id="form">
+      <label for="api-key">Gemini API Key</label>
+      <div class="row">
+        <input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="AIza…" />
+        <button id="toggle-key" type="button">顯示</button>
+      </div>
+      <p class="help">
+        到 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a> 免費取得。
+        Key 只儲存在這台電腦的瀏覽器中。
+      </p>
+
+      <label for="model">模型</label>
+      <div class="row">
+        <select id="model"></select>
+        <button id="load-models" type="button">載入可用模型</button>
+      </div>
+      <p class="help">清單取自你的 API Key 可用的模型。建議使用 <code>gemini-flash-latest</code>（自動跟隨最新版）。</p>
+
+      <div class="buttons">
+        <button type="submit" class="primary">儲存</button>
+        <button id="test" type="button">測試連線</button>
+      </div>
+      <p id="status" class="status" role="status"></p>
+    </form>
+
+    <section class="shortcut">
+      <h2>快捷鍵</h2>
+      <p>目前：<kbd id="shortcut">未設定</kbd>　可到 <a id="shortcuts-link" href="#">chrome://extensions/shortcuts</a> 修改。</p>
+    </section>
+  </main>
+  <script src="options.js" type="module"></script>
+</body>
+</html>

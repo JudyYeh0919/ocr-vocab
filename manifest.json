@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "OCR 單字本",
+  "version": "1.0.0",
+  "description": "框選網頁上的英文單字，以 Gemini 辨識並翻譯成中文，自動收進單字本。",
+  "permissions": ["storage", "activeTab", "contextMenus", "scripting"],
+  "host_permissions": ["https://generativelanguage.googleapis.com/*"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "OCR 單字本",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options/options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "start-ocr": {
+      "suggested_key": {
+        "default": "Alt+Shift+O"
+      },
+      "description": "啟動 OCR 框選單字"
+    }
+  }
+}

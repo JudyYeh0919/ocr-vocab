@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>我的單字本</title>
+  <link rel="stylesheet" href="words.css" />
+</head>
+<body>
+  <header>
+    <div class="title">
+      <h1>我的單字本</h1>
+      <span id="count" class="count"></span>
+    </div>
+    <input id="search" type="search" placeholder="搜尋單字或翻譯…" autocomplete="off" />
+  </header>
+
+  <main>
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" hidden>
+      <p class="empty-title">單字本還是空的</p>
+      <p>在任何網頁按 <kbd id="shortcut">Alt+Shift+O</kbd>，或按右鍵選「OCR 選取單字」，拖曳框選英文單字即可加入。</p>
+    </div>
+    <p id="no-match" class="empty" hidden>找不到符合的單字</p>
+  </main>
+
+  <template id="card-tpl">
+    <article class="card">
+      <div class="card-head">
+        <div>
+          <h2 class="word"></h2>
+          <span class="pos"></span>
+        </div>
+        <div class="actions">
+          <button class="pin" type="button"></button>
+          <button class="delete" type="button">刪除</button>
+        </div>
+      </div>
+      <p class="translation"></p>
+      <div class="example">
+        <p class="example-en"></p>
+        <p class="example-zh"></p>
+      </div>
+    </article>
+  </template>
+
+  <script src="words.js" type="module"></script>
+</body>
+</html>
