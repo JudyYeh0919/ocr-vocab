@@ -12,14 +12,21 @@
       <h1>我的單字本</h1>
       <span id="count" class="count"></span>
     </div>
-    <input id="search" type="search" placeholder="搜尋單字或翻譯…" autocomplete="off" />
+    <div class="filters">
+      <select id="lang-filter" aria-label="語言">
+        <option value="">全部語言</option>
+        <option value="en">英文</option>
+        <option value="ko">韓文</option>
+      </select>
+      <input id="search" type="search" placeholder="搜尋單字、拼音或翻譯…" autocomplete="off" />
+    </div>
   </header>
 
   <main>
     <div id="grid" class="grid"></div>
     <div id="empty" class="empty" hidden>
       <p class="empty-title">單字本還是空的</p>
-      <p>在任何網頁按 <kbd id="shortcut">Alt+Shift+O</kbd>，或按右鍵選「OCR 選取單字」，拖曳框選英文單字即可加入。</p>
+      <p>在任何網頁按 <kbd id="shortcut">Alt+Shift+O</kbd>，或按右鍵選「OCR 選取單字」，拖曳框選英文或韓文單字即可加入。</p>
     </div>
     <p id="no-match" class="empty" hidden>找不到符合的單字</p>
   </main>
@@ -28,7 +35,9 @@
     <article class="card">
       <div class="card-head">
         <div>
+          <span class="lang"></span>
           <h2 class="word"></h2>
+          <span class="reading"></span>
           <span class="pos"></span>
         </div>
         <div class="actions">

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OCR 單字本",
   "version": "1.0.0",
-  "description": "框選網頁上的英文單字，以 Gemini 辨識並翻譯成中文，自動收進單字本。",
+  "description": "框選網頁上的英文或韓文單字，以 Gemini 辨識並翻譯成中文，自動收進單字本。",
   "permissions": ["storage", "activeTab", "contextMenus", "scripting"],
   "host_permissions": ["https://generativelanguage.googleapis.com/*"],
   "background": {

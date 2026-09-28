@@ -6,18 +6,29 @@ const countEl = document.getElementById('count');
 const emptyEl = document.getElementById('empty');
 const noMatchEl = document.getElementById('no-match');
 const searchEl = document.getElementById('search');
+const langEl = document.getElementById('lang-filter');
+
+const LANG_LABELS = { en: '英', ko: '韓' };
 
 let words = [];
 
-function matches(word, query) {
+// 舊資料沒有 language 欄位，一律視為英文
+function langOf(word) {
+  return word.language || 'en';
+}
+
+function matches(word, query, lang) {
+  if (lang && langOf(word) !== lang) return false;
   if (!query) return true;
-  return [word.word, word.translation].some((s) => s?.toLowerCase().includes(query));
+  return [word.word, word.reading, word.translation].some((s) => s?.toLowerCase().includes(query));
 }
 
 function renderCard(word) {
   const card = tpl.content.firstElementChild.cloneNode(true);
   card.classList.toggle('pinned', word.pinned);
+  card.querySelector('.lang').textContent = LANG_LABELS[langOf(word)] || '';
   card.querySelector('.word').textContent = word.word;
+  card.querySelector('.reading').textContent = word.reading || '';
   card.querySelector('.pos').textContent = word.partOfSpeech;
   card.querySelector('.translation').textContent = word.translation;
   card.querySelector('.example-en').textContent = word.example;
@@ -36,7 +47,8 @@ function renderCard(word) {
 
 function render() {
   const query = searchEl.value.trim().toLowerCase();
-  const visible = sortWords(words).filter((w) => matches(w, query));
+  const lang = langEl.value;
+  const visible = sortWords(words).filter((w) => matches(w, query, lang));
 
   grid.replaceChildren(...visible.map(renderCard));
   countEl.textContent = `共 ${words.length} 個單字`;
@@ -50,6 +62,7 @@ async function load() {
 }
 
 searchEl.addEventListener('input', render);
+langEl.addEventListener('change', render);
 
 // 在其他分頁新增/修改單字時即時更新
 chrome.storage.onChanged.addListener((changes, area) => {

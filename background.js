@@ -58,7 +58,7 @@ async function handleCapture({ rect, viewportWidth }, tab) {
     const base64 = await cropImage(dataUrl, rect, viewportWidth);
     const result = await recognizeWord(settings, base64);
 
-    if (!result.word?.trim()) return { ok: false, error: '未辨識到英文單字，請重新框選。' };
+    if (!result.word?.trim()) return { ok: false, error: '未辨識到英文或韓文單字，請重新框選。' };
 
     const { word, duplicate } = await addWord(result);
     return { ok: true, word, duplicate };

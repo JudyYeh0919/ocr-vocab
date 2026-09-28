@@ -14,7 +14,7 @@
       position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
       padding: 8px 14px; border-radius: 8px;
       background: rgba(15, 23, 42, 0.9); color: #fff;
-      font: 13px/1.4 system-ui, "Microsoft JhengHei", sans-serif;
+      font: 13px/1.4 system-ui, "Microsoft JhengHei", "Malgun Gothic", sans-serif;
       pointer-events: none;
     }
     .rect {
@@ -30,9 +30,10 @@
       background: #fff; color: #1e293b;
       border: 1px solid #e2e8f0;
       box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
-      font: 14px/1.5 system-ui, "Microsoft JhengHei", sans-serif;
+      font: 14px/1.5 system-ui, "Microsoft JhengHei", "Malgun Gothic", sans-serif;
     }
     .word { font-size: 18px; font-weight: 700; margin-right: 6px; }
+    .reading { color: #64748b; font-size: 13px; margin-right: 6px; }
     .pos {
       display: inline-block; padding: 1px 8px; border-radius: 999px;
       background: #eff6ff; color: #1d4ed8; font-size: 12px; vertical-align: 2px;
@@ -132,6 +133,7 @@
     const { word, duplicate } = res;
     const head = el('div');
     head.append(el('span', 'word', word.word));
+    if (word.reading) head.append(el('span', 'reading', word.reading));
     if (word.partOfSpeech) head.append(el('span', 'pos', word.partOfSpeech));
     const trans = el('div', 'trans', word.translation);
     const meta = el('div', 'meta');
@@ -150,7 +152,7 @@
     if (root.querySelector('.mask')) return;
 
     const mask = el('div', 'mask');
-    const hint = el('div', 'hint', '拖曳滑鼠框選英文單字（Esc 取消）');
+    const hint = el('div', 'hint', '拖曳滑鼠框選英文或韓文單字（Esc 取消）');
     mask.appendChild(hint);
     root.appendChild(mask);
 
