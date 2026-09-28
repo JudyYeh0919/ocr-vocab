@@ -1,4 +1,4 @@
-import { getSettings, addWord } from './lib/storage.js';
+import { getSettings, saveSettings, addWord, DEFAULT_MODEL } from './lib/storage.js';
 import { recognizeWord } from './lib/gemini.js';
 
 const MENU_ID = 'start-ocr';
@@ -56,7 +56,7 @@ async function handleCapture({ rect, viewportWidth }, tab) {
 
     const dataUrl = await chrome.tabs.captureVisibleTab(tab.windowId, { format: 'png' });
     const base64 = await cropImage(dataUrl, rect, viewportWidth);
-    const result = await recognizeWord(settings, base64);
+    const result = await recognizeWithFallback(settings, base64);
 
     if (!result.word?.trim()) return { ok: false, error: '未辨識到英文或韓文單字，請重新框選。' };
 
@@ -64,6 +64,19 @@ async function handleCapture({ rect, viewportWidth }, tab) {
     return { ok: true, word, duplicate };
   } catch (err) {
     return { ok: false, needsSettings: !!err.modelNotFound, error: err.message || String(err) };
+  }
+}
+
+// 設定的模型已停用時，自動改用預設的「-latest」別名並存回設定
+async function recognizeWithFallback(settings, base64) {
+  try {
+    return await recognizeWord(settings, base64);
+  } catch (err) {
+    if (!err.modelNotFound || settings.model === DEFAULT_MODEL) throw err;
+    const fallback = { ...settings, model: DEFAULT_MODEL };
+    const result = await recognizeWord(fallback, base64);
+    await saveSettings(fallback);
+    return result;
   }
 }
 
